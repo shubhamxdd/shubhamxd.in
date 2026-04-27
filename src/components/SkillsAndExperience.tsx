@@ -56,7 +56,7 @@ export const SkillsAndExperience = () => {
         <div>
           <h2 className="text-3xl font-bold mb-12">Arsenal</h2>
           <Tabs defaultValue="frontend" className="w-full">
-            <TabsList className="bg-white/5 border border-white/10 p-1 mb-8 w-full justify-start overflow-x-auto">
+            <TabsList className="bg-white/5 border border-white/10 p-1 mb-8 w-full justify-start overflow-x-auto no-scrollbar">
               <TabsTrigger value="frontend">Frontend</TabsTrigger>
               <TabsTrigger value="backend">Backend</TabsTrigger>
               <TabsTrigger value="cloud">Cloud & DevOps</TabsTrigger>

@@ -7,7 +7,6 @@ export const portfolioData = {
     location: "New Delhi, India",
     linkedin: "https://linkedin.com/in/shubhamsisodia016",
     github: "https://github.com/shubhamxdd",
-    leetcode: "https://leetcode.com/shubhamxdd",
   },
   about: "I am a Software Developer Intern with a passion for building AI-powered applications and scalable web solutions. Currently pursuing my MCA at USICT, I focus on creating high-performance, interactive user experiences.",
   experience: [

@@ -16,14 +16,6 @@ export const Hero = () => {
         transition={{ duration: 0.8 }}
         className="text-center z-10"
       >
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-primary font-medium tracking-widest uppercase text-xs mb-4 block"
-        >
-          Available for new opportunities
-        </motion.span>
         
         <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
           {portfolioData.name}

@@ -29,12 +29,9 @@ export const Navbar = () => {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-xl font-bold tracking-tighter flex items-center gap-2"
+          className="text-lg font-semibold tracking-tight"
         >
-          <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-            <span className="text-black text-sm">SS</span>
-          </div>
-          <span className="hidden sm:inline">Shubham.dev</span>
+          shubhamxd.in
         </motion.div>
 
         <div className="hidden md:flex items-center gap-8">

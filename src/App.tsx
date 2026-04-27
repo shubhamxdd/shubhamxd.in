@@ -83,7 +83,6 @@ function App() {
           <div className="flex gap-6">
             <a href={portfolioData.contact.github} className="text-muted-foreground hover:text-white transition-colors">GitHub</a>
             <a href={portfolioData.contact.linkedin} className="text-muted-foreground hover:text-white transition-colors">LinkedIn</a>
-            <a href={portfolioData.contact.leetcode} className="text-muted-foreground hover:text-white transition-colors">Leetcode</a>
           </div>
         </div>
       </footer>
