@@ -46,9 +46,9 @@ export const Hero = () => {
         
         <div className="flex flex-wrap justify-center gap-4">
           <Button size="lg" className="rounded-full px-8 h-12 text-base font-medium group" asChild>
-            <a href="/resume.pdf" target="_blank">
+            <a href="https://drive.google.com/file/d/1C_lRYC-5Uo03-hg-sXuUF1dCG6FulqCF/view?usp=sharing" target="_blank">
               <FileText className="w-5 h-5 mr-2" />
-              Download Resume
+              Resume
               <motion.span
                 className="ml-2"
                 animate={{ y: [0, 2, 0] }}

@@ -27,14 +27,14 @@ export const Projects = () => {
               Featured Projects
             </motion.h2>
           </div>
-          <motion.p 
+          {/* <motion.p 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
             className="text-white/50 text-base md:text-lg max-w-sm mb-2 font-light leading-relaxed"
           >
             A collection of meticulously crafted digital experiences that push the boundaries of design and performance.
-          </motion.p>
+          </motion.p> */}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
