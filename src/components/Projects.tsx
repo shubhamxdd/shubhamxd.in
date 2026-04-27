@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Github, ExternalLink, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 export const Projects = () => {
   return (
@@ -24,7 +24,7 @@ export const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-bold tracking-tighter"
+              className="text-5xl md:text-6xl font-bold tracking-tighter"
             >
               Featured Projects
             </motion.h2>
@@ -33,42 +33,42 @@ export const Projects = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="text-white/50 text-lg max-w-sm mb-2 font-light leading-relaxed"
+            className="text-white/50 text-base md:text-lg max-w-sm mb-2 font-light leading-relaxed"
           >
             A collection of meticulously crafted digital experiences that push the boundaries of design and performance.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {portfolioData.projects.map((project, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.15, duration: 0.6 }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
               viewport={{ once: true }}
               className="group relative"
             >
-              <div className="relative h-full flex flex-col bg-white/[0.03] border border-white/10 rounded-[2.5rem] overflow-hidden backdrop-blur-sm transition-all duration-700 hover:bg-white/[0.05] hover:border-primary/30 hover:shadow-[0_0_80px_rgba(var(--primary-rgb),0.1)]">
+              <div className="relative h-full flex flex-col bg-white/[0.02] border border-white/5 rounded-[2rem] overflow-hidden backdrop-blur-sm transition-all duration-500 hover:bg-white/[0.04] hover:border-primary/20">
                 {/* Image Section */}
-                <div className="relative h-80 overflow-hidden">
+                <div className="relative h-60 overflow-hidden">
                   <motion.img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/20 to-transparent opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-transparent opacity-80" />
                   
                   {/* Action Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center gap-6 opacity-0 group-hover:opacity-100 transition-all duration-500 scale-90 group-hover:scale-100">
+                  <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-95 group-hover:scale-100">
                     {project.github && (
                       <a 
                         href={project.github} 
                         target="_blank" 
                         rel="noreferrer"
-                        className="w-14 h-14 bg-white text-black rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-xl"
+                        className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-xl"
                       >
-                        <Github className="w-6 h-6" />
+                        <Github className="w-5 h-5" />
                       </a>
                     )}
                     {project.visit && (
@@ -76,52 +76,50 @@ export const Projects = () => {
                         href={project.visit} 
                         target="_blank" 
                         rel="noreferrer"
-                        className="w-14 h-14 bg-primary text-black rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-xl"
+                        className="w-12 h-12 bg-primary text-black rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-xl"
                       >
-                        <ExternalLink className="w-6 h-6" />
+                        <ExternalLink className="w-5 h-5" />
                       </a>
                     )}
                   </div>
                 </div>
 
                 {/* Content Section */}
-                <div className="p-10 -mt-20 relative z-10 flex flex-col flex-1">
+                <div className="p-8 flex flex-col flex-1">
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tech.map((tag, j) => (
+                    {project.tech.slice(0, 3).map((tag, j) => (
                       <span 
                         key={j} 
-                        className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-widest text-primary/90 backdrop-blur-md"
+                        className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] font-bold uppercase tracking-widest text-primary/80 backdrop-blur-md"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  <h3 className="text-4xl font-bold mb-4 flex items-center gap-3 text-white group-hover:text-primary transition-colors">
+                  <h3 className="text-2xl font-bold mb-3 flex items-center justify-between text-white group-hover:text-primary transition-colors">
                     {project.title}
-                    <ArrowUpRight className="w-6 h-6 opacity-0 -translate-y-2 translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-500" />
+                    <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all duration-300" />
                   </h3>
                   
-                  <p className="text-white/60 text-lg leading-relaxed mb-10 flex-1">
+                  <p className="text-white/60 text-sm leading-relaxed mb-8 flex-1 line-clamp-3">
                     {project.description}
                   </p>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 p-6 bg-white/[0.02] border border-white/5 rounded-3xl">
+                  <div className="space-y-3 mb-8 p-5 bg-white/[0.01] border border-white/5 rounded-2xl">
                     {project.features.map((feature, k) => (
-                      <div key={k} className="flex items-start gap-3 text-sm text-white/80">
-                        <CheckCircle2 className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <div key={k} className="flex items-start gap-3 text-xs text-white/70">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
                         <span className="leading-tight">{feature}</span>
                       </div>
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between pt-6 border-t border-white/10">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/30">Case Study</span>
-                    <div className="flex gap-4">
-                      <Button variant="link" className="p-0 text-white/50 hover:text-primary transition-colors text-xs uppercase tracking-widest h-auto">
-                        Details
-                      </Button>
-                    </div>
+                  <div className="flex items-center justify-between pt-6 border-t border-white/5">
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-white/20">Project {i + 1}</span>
+                    <Button variant="link" className="p-0 text-white/40 hover:text-primary transition-colors text-[10px] uppercase tracking-widest h-auto">
+                      View Details
+                    </Button>
                   </div>
                 </div>
               </div>
