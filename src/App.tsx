@@ -4,6 +4,7 @@ import { Hero } from "./components/Hero";
 import { Projects } from "./components/Projects";
 import { SkillsAndExperience } from "./components/SkillsAndExperience";
 import { Terminal } from "./components/Terminal";
+import { CustomCursor } from "./components/CustomCursor";
 import { motion, AnimatePresence } from "framer-motion";
 import { portfolioData } from "./data/portfolio";
 import { Mail, Github, Linkedin, MessageSquare } from "lucide-react";
@@ -35,7 +36,8 @@ function App() {
   }, [konamiIndex]);
 
   return (
-    <div className={`min-h-screen bg-black text-white selection:bg-primary selection:text-black ${konami ? "rainbow-mode" : ""}`}>
+    <div className={`min-h-screen bg-background text-foreground selection:bg-primary selection:text-black transition-colors duration-300 ${konami ? "rainbow-mode" : ""}`}>
+      <CustomCursor />
       <Navbar />
       <main>
         <Hero />
@@ -78,7 +80,13 @@ function App() {
       <footer className="py-12 border-t border-white/5 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} {portfolioData.name}. Built with Passion.
+            © {new Date().getFullYear()} {portfolioData.name}. Built with{" "}
+            <span 
+              className="cursor-pointer hover:text-primary transition-colors"
+              onClick={() => alert("Hey! You found a secret. You're awesome! 🚀")}
+            >
+              Passion
+            </span>.
           </p>
           <div className="flex gap-6">
             <a href={portfolioData.contact.github} className="text-muted-foreground hover:text-white transition-colors">GitHub</a>

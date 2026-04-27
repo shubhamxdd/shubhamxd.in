@@ -1,12 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, ExternalLink, FileText } from "lucide-react";
+import { Github, Linkedin, Mail, FileText } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
+import { InteractiveBackground } from "./InteractiveBackground";
 
 export const Hero = () => {
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center px-4 pt-20 overflow-hidden">
+      <InteractiveBackground />
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
       
@@ -17,12 +19,30 @@ export const Hero = () => {
         className="text-center z-10"
       >
         
-        <h1 className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
+        <motion.h1 
+          className="text-6xl md:text-8xl font-bold tracking-tighter mb-6 bg-gradient-to-b from-foreground to-foreground/40 bg-clip-text text-transparent cursor-pointer select-none"
+          whileTap={{ scale: 0.95 }}
+          onClick={(e) => {
+            const target = e.currentTarget;
+            const original = portfolioData.name;
+            let iterations = 0;
+            const interval = setInterval(() => {
+              target.innerText = original.split("")
+                .map((char, i) => {
+                  if (i < iterations) return original[i];
+                  return String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                })
+                .join("");
+              if (iterations >= original.length) clearInterval(interval);
+              iterations += 1/3;
+            }, 30);
+          }}
+        >
           {portfolioData.name}
-        </h1>
+        </motion.h1>
         
         <p className="text-xl md:text-2xl text-muted-foreground max-w-[600px] mx-auto mb-10 leading-relaxed font-light">
-          {portfolioData.role}. <span className="text-white/80">Crafting AI-driven experiences with precision and passion.</span>
+          {portfolioData.role}. <span className="text-foreground/80">Crafting AI-driven experiences with precision and passion.</span>
         </p>
         
         <div className="flex flex-wrap justify-center gap-4">
@@ -61,9 +81,9 @@ export const Hero = () => {
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
       >
-        <div className="w-6 h-10 rounded-full border-2 border-white flex justify-center p-1">
+        <div className="w-6 h-10 rounded-full border-2 border-foreground flex justify-center p-1">
           <motion.div
-            className="w-1 h-2 bg-white rounded-full"
+            className="w-1 h-2 bg-foreground rounded-full"
             animate={{ y: [0, 12, 0] }}
             transition={{ repeat: Infinity, duration: 2 }}
           />

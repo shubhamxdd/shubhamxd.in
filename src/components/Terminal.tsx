@@ -54,6 +54,9 @@ export const Terminal = () => {
       case "clear":
         setHistory([]);
         return;
+      case "matrix":
+        response = "Wake up, Shubham...\nThe Matrix has you...\nFollow the white rabbit. 🐇";
+        break;
       case "exit":
         setIsOpen(false);
         return;
