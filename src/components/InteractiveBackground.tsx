@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from "react";
-import { useTheme } from "@/context/ThemeContext";
 
 export const InteractiveBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -45,7 +43,7 @@ export const InteractiveBackground = () => {
 
       draw() {
         if (!ctx) return;
-        ctx.fillStyle = theme === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)";
+        ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -68,9 +66,7 @@ export const InteractiveBackground = () => {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < 150) {
-            ctx.strokeStyle = theme === "dark" 
-              ? `rgba(255, 255, 255, ${0.1 * (1 - distance / 150)})` 
-              : `rgba(0, 0, 0, ${0.1 * (1 - distance / 150)})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 150)})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
@@ -100,7 +96,7 @@ export const InteractiveBackground = () => {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [theme]);
+  }, []);
 
   return (
     <canvas

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, Linkedin, Mail, Menu, X, Terminal as TerminalIcon, Sun, Moon } from "lucide-react";
+import { Github, Linkedin, Mail, Menu, X, Terminal as TerminalIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "@/context/ThemeContext";
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -31,9 +29,9 @@ export const Navbar = () => {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-lg font-semibold tracking-tight"
+          className="text-lg font-semibold tracking-tight cursor-pointer"
         >
-          shubhamxd.in
+          <a href="#">shubhamxd.in</a>
         </motion.div>
 
         <div className="hidden md:flex items-center gap-8">
@@ -48,10 +46,6 @@ export const Navbar = () => {
           ))}
           
           <div className="flex items-center gap-2 border-l border-white/10 pl-6 ml-2">
-            <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
-              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </Button>
-            
             <Button variant="ghost" size="sm" className="text-xs text-muted-foreground hover:text-foreground group px-2">
               <TerminalIcon className="w-3.5 h-3.5 mr-2" />
               Press <span className="mx-1 px-1.5 py-0.5 bg-muted rounded border border-white/5 group-hover:bg-accent transition-colors">`</span>
@@ -60,9 +54,6 @@ export const Navbar = () => {
         </div>
 
         <div className="md:hidden flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={toggleTheme} className="rounded-full">
-            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-          </Button>
           <button className="text-foreground" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X /> : <Menu />}
           </button>
