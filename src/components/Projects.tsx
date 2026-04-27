@@ -1,8 +1,6 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Github, ExternalLink, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
-import { Button } from "@/components/ui/button";
 
 export const Projects = () => {
   return (

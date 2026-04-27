@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { Projects } from "./components/Projects";
@@ -7,7 +7,7 @@ import { Terminal } from "./components/Terminal";
 import { CustomCursor } from "./components/CustomCursor";
 import { motion, AnimatePresence } from "framer-motion";
 import { portfolioData } from "./data/portfolio";
-import { Mail, Github, Linkedin, MessageSquare } from "lucide-react";
+import { Mail, Linkedin, MessageSquare } from "lucide-react";
 import { Button } from "./components/ui/button";
 
 function App() {

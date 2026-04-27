@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { portfolioData } from "@/data/portfolio";
 
 export const Terminal = () => {
@@ -32,7 +31,7 @@ export const Terminal = () => {
 
     switch (command) {
       case "help":
-        response = "Available commands: about, projects, skills, contact, clear, exit, whoami";
+        response = "Available commands: about, projects, skills, contact, clear, exit, whoami, matrix";
         break;
       case "about":
         response = portfolioData.about;
@@ -51,12 +50,12 @@ export const Terminal = () => {
       case "whoami":
         response = `${portfolioData.name} - ${portfolioData.role}`;
         break;
-      case "clear":
-        setHistory([]);
-        return;
       case "matrix":
         response = "Wake up, Shubham...\nThe Matrix has you...\nFollow the white rabbit. 🐇";
         break;
+      case "clear":
+        setHistory([]);
+        return;
       case "exit":
         setIsOpen(false);
         return;
@@ -79,7 +78,10 @@ export const Terminal = () => {
               <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
             </div>
           </div>
-          <ScrollArea className="flex-1 pr-4" viewportRef={scrollRef}>
+          <div 
+            ref={scrollRef}
+            className="flex-1 overflow-y-auto pr-4 scrollbar-hide"
+          >
             <div className="space-y-1 text-sm whitespace-pre-wrap">
               {history.map((line, i) => (
                 <div key={i} className={line.startsWith(">") ? "text-white" : "text-green-400"}>
@@ -87,7 +89,7 @@ export const Terminal = () => {
                 </div>
               ))}
             </div>
-          </ScrollArea>
+          </div>
           <div className="mt-4 flex items-center gap-2 border-t border-green-500/30 pt-2">
             <span className="text-white font-bold">$</span>
             <input

@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, FileText } from "lucide-react";
@@ -28,7 +27,7 @@ export const Hero = () => {
             let iterations = 0;
             const interval = setInterval(() => {
               target.innerText = original.split("")
-                .map((char, i) => {
+                .map((_, i) => {
                   if (i < iterations) return original[i];
                   return String.fromCharCode(65 + Math.floor(Math.random() * 26));
                 })
@@ -46,27 +45,28 @@ export const Hero = () => {
         </p>
         
         <div className="flex flex-wrap justify-center gap-4">
-          <Button size="lg" className="rounded-full px-8 bg-white text-black hover:bg-white/90 group" asChild>
-            <a href="https://drive.google.com/file/d/1C_lRYC-5Uo03-hg-sXuUF1dCG6FulqCF/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-              <FileText className="mr-2 w-4 h-4" />
-              Resume
-              <motion.div
-                className="ml-1 inline-block"
+          <Button size="lg" className="rounded-full px-8 h-12 text-base font-medium group" asChild>
+            <a href="/resume.pdf" target="_blank">
+              <FileText className="w-5 h-5 mr-2" />
+              Download Resume
+              <motion.span
+                className="ml-2"
                 animate={{ y: [0, 2, 0] }}
                 transition={{ repeat: Infinity, duration: 1.5 }}
               >
                 ↓
-              </motion.div>
+              </motion.span>
             </a>
           </Button>
-          <div className="flex gap-2">
+          
+          <div className="flex items-center gap-2">
             {[
               { icon: Github, href: portfolioData.contact.github },
               { icon: Linkedin, href: portfolioData.contact.linkedin },
-              { icon: Mail, href: `mailto:${portfolioData.contact.email}` },
+              { icon: Mail, href: `mailto:${portfolioData.contact.email}` }
             ].map((social, i) => (
-              <Button key={i} variant="outline" size="icon" className="rounded-full border-white/10 hover:border-white/40 transition-colors" asChild>
-                <a href={social.href} target="_blank" rel="noopener noreferrer">
+              <Button key={i} variant="ghost" size="icon" className="rounded-full w-12 h-12 hover:bg-white/5" asChild>
+                <a href={social.href} target="_blank" rel="noreferrer">
                   <social.icon className="w-5 h-5" />
                 </a>
               </Button>
@@ -75,7 +75,6 @@ export const Hero = () => {
         </div>
       </motion.div>
 
-      {/* Decorative Elements */}
       <motion.div
         className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-30"
         animate={{ y: [0, 10, 0] }}

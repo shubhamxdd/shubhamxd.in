@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 export const InteractiveBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -14,8 +14,10 @@ export const InteractiveBackground = () => {
     let animationFrameId: number;
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
     };
 
     class Particle {
@@ -26,14 +28,15 @@ export const InteractiveBackground = () => {
       size: number;
 
       constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.x = Math.random() * (canvas?.width || 0);
+        this.y = Math.random() * (canvas?.height || 0);
         this.vx = (Math.random() - 0.5) * 0.5;
         this.vy = (Math.random() - 0.5) * 0.5;
         this.size = Math.random() * 2;
       }
 
       update() {
+        if (!canvas) return;
         this.x += this.vx;
         this.y += this.vy;
 
@@ -78,6 +81,7 @@ export const InteractiveBackground = () => {
     };
 
     const animate = () => {
+      if (!ctx || !canvas) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach((p) => {
         p.update();
