@@ -27,7 +27,7 @@ export const portfolioData = {
       title: "PdfTools",
       description: "AI-powered PDF utility application with multimodal analysis and manipulation features.",
       tech: ["React Native", "Expo", "Gemini 2.5", "TypeScript"],
-      github: "https://github.com/shubhamsisodia/pdftools",
+      github: "https://github.com/shubhamxdd/pdftk-react-native",
       features: [
         "Chat with PDF using Google Gemini 2.5 Flash.",
         "PDF merging, splitting, and drag-and-drop system.",
@@ -39,7 +39,7 @@ export const portfolioData = {
       title: "CalTrack",
       description: "AI-powered Calorie Tracker with multimodal dietary analysis.",
       tech: ["React Native", "Expo", "Gemini 2.5 Flash", "TypeScript"],
-      github: "https://github.com/shubhamsisodia/caltrack",
+      github: "https://github.com/shubhamxdd/cal-track",
       features: [
         "Visual food recognition and macro estimation from photos.",
         "Health engine with TDEE/BMR calculations.",
@@ -51,14 +51,27 @@ export const portfolioData = {
       title: "NextBuy",
       description: "Full-stack E-commerce platform with admin dashboard and payment integration.",
       tech: ["Next.js", "Prisma", "MongoDB", "Stripe", "TailwindCSS"],
-      github: "https://github.com/shubhamsisodia/nextbuy",
-      visit: "https://nextbuy-demo.com",
+      github: "https://github.com/shubhamxdd/e-commerce",
+      visit: "https://ecom.shubhamxd.in/",
       features: [
         "Admin dashboard for managing orders, products, and users.",
         "Stripe payment integration and email notifications via Nodemailer.",
         "Responsive layout with ShadCN UI.",
       ],
       image: "/projects/nextbuy.png",
+    },
+    {
+      title: "paste",
+      description: "A self-hosted pastebin with syntax highlighting, paraphrase-protected pastes, gist collections, and full-text search.",
+      tech: ["ReactJS", "TailwindCSS", "Express JS", "Prisma", "MongoDB", "Docker", "PostHog"],
+      github: "https://github.com/shubhamxdd/paste",
+      visit: "https://paste.shubhamxd.in",
+      features: [
+        "Create and manage code pastes with rich features like syntax highlighting (17 languages), custom URLs, line highlighting, raw view, file uploads, and light/dark themes.",
+        "Control access and editing with paraphrase protection, delete codes, and support for grouping/editing multiple pastes as gists.",
+        "Includes advanced tools like view tracking, full-text search, and an admin dashboard with metrics, activity logs, and content management.",
+      ],
+      image: "/projects/paste.png",
     },
   ],
   skills: {

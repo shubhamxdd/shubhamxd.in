@@ -114,13 +114,6 @@ export const Projects = () => {
                       </div>
                     ))}
                   </div>
-
-                  <div className="flex items-center justify-between pt-6 border-t border-white/5">
-                    <span className="text-[9px] font-mono uppercase tracking-widest text-white/20">Project {i + 1}</span>
-                    <Button variant="link" className="p-0 text-white/40 hover:text-primary transition-colors text-[10px] uppercase tracking-widest h-auto">
-                      View Details
-                    </Button>
-                  </div>
                 </div>
               </div>
             </motion.div>
