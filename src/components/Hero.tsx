@@ -47,9 +47,9 @@ export const Hero = () => {
         
         <div className="flex flex-wrap justify-center gap-4">
           <Button size="lg" className="rounded-full px-8 bg-white text-black hover:bg-white/90 group" asChild>
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="https://drive.google.com/file/d/1C_lRYC-5Uo03-hg-sXuUF1dCG6FulqCF/view?usp=sharing" target="_blank" rel="noopener noreferrer">
               <FileText className="mr-2 w-4 h-4" />
-              Download Resume
+              Resume
               <motion.div
                 className="ml-1 inline-block"
                 animate={{ y: [0, 2, 0] }}
