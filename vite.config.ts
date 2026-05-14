@@ -20,6 +20,13 @@ export default defineConfig(({ mode }) => {
               req.on('data', chunk => { body += chunk; });
               req.on('end', async () => {
                 try {
+                  const incomingSecret = req.headers['x-logging-secret'];
+                  if (incomingSecret !== env.LOGGING_SECRET) {
+                    res.statusCode = 401;
+                    res.end(JSON.stringify({ error: 'Unauthorized' }));
+                    return;
+                  }
+
                   const { message } = JSON.parse(body);
                   const botToken = env.TELEGRAM_BOT_TOKEN;
                   const chatId = env.TELEGRAM_CHAT_ID;

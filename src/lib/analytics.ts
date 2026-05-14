@@ -23,6 +23,7 @@ export const logToTelegram = async (message: string) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'x-logging-secret': import.meta.env.VITE_LOGGING_SECRET,
       },
       body: JSON.stringify({ message }),
     });

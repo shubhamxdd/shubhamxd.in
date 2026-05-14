@@ -8,6 +8,11 @@ export default async function handler(req: Request) {
   }
 
   try {
+    const secret = req.headers.get('x-logging-secret');
+    if (secret !== process.env.LOGGING_SECRET) {
+      return new Response('Unauthorized', { status: 401 });
+    }
+
     const { message } = await req.json();
     const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'Unknown';
 
