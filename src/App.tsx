@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { portfolioData } from "./data/portfolio";
 import { Mail, Linkedin, MessageSquare } from "lucide-react";
 import { Button } from "./components/ui/button";
+import { trackEvent } from "./lib/analytics";
 
 function App() {
   const [konami, setKonami] = useState(false);
@@ -22,6 +23,7 @@ function App() {
         if (nextIndex === konamiCode.length) {
           setKonami(true);
           setKonamiIndex(0);
+          trackEvent('Konami Code Activated');
           setTimeout(() => setKonami(false), 5000); // Effect lasts 5s
         } else {
           setKonamiIndex(nextIndex);
@@ -62,12 +64,23 @@ function App() {
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button size="lg" className="rounded-full px-10 h-14 text-lg" asChild>
+              <Button 
+                size="lg" 
+                className="rounded-full px-10 h-14 text-lg" 
+                asChild
+                onClick={() => trackEvent('Contact Button Click', { method: 'Email' })}
+              >
                 <a href={`mailto:${portfolioData.contact.email}`}>
                   <Mail className="mr-2 w-5 h-5" /> Say Hello
                 </a>
               </Button>
-              <Button variant="outline" size="lg" className="rounded-full px-10 h-14 text-lg border-white/10" asChild>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="rounded-full px-10 h-14 text-lg border-white/10" 
+                asChild
+                onClick={() => trackEvent('Contact Button Click', { method: 'LinkedIn' })}
+              >
                 <a href={portfolioData.contact.linkedin} target="_blank" rel="noopener noreferrer">
                   <Linkedin className="mr-2 w-5 h-5" /> LinkedIn
                 </a>
@@ -83,14 +96,25 @@ function App() {
             © {new Date().getFullYear()} {portfolioData.name}. Built with{" "}
             <span 
               className="cursor-pointer hover:text-primary transition-colors"
-              onClick={() => alert("Hey! You found a secret. You're awesome! 🚀")}
+              onClick={() => {
+                alert("Hey! You found a secret. You're awesome! 🚀");
+                trackEvent('Secret Passion Click');
+              }}
             >
               Passion
             </span>.
           </p>
           <div className="flex gap-6">
-            <a href={portfolioData.contact.github} className="text-muted-foreground hover:text-white transition-colors">GitHub</a>
-            <a href={portfolioData.contact.linkedin} className="text-muted-foreground hover:text-white transition-colors">LinkedIn</a>
+            <a 
+              href={portfolioData.contact.github} 
+              className="text-muted-foreground hover:text-white transition-colors"
+              onClick={() => trackEvent('Footer Link Click', { platform: 'Github' })}
+            >GitHub</a>
+            <a 
+              href={portfolioData.contact.linkedin} 
+              className="text-muted-foreground hover:text-white transition-colors"
+              onClick={() => trackEvent('Footer Link Click', { platform: 'LinkedIn' })}
+            >LinkedIn</a>
           </div>
         </div>
       </footer>

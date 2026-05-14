@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { Github, ExternalLink, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { Github, ExternalLink, CheckCircle2 } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
+import { trackEvent } from "@/lib/analytics";
 
 export const Projects = () => {
   return (
@@ -27,14 +28,6 @@ export const Projects = () => {
               Featured Projects
             </motion.h2>
           </div>
-          {/* <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-white/50 text-base md:text-lg max-w-sm mb-2 font-light leading-relaxed"
-          >
-            A collection of meticulously crafted digital experiences that push the boundaries of design and performance.
-          </motion.p> */}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -86,6 +79,7 @@ export const Projects = () => {
                         href={project.github} 
                         target="_blank" 
                         rel="noreferrer"
+                        onClick={() => trackEvent('Project Github Click', { project: project.title })}
                         className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-white/5 border border-white/10 rounded-xl text-xs font-medium hover:bg-white/10 transition-colors"
                       >
                         <Github className="w-4 h-4" /> Github
@@ -96,6 +90,7 @@ export const Projects = () => {
                         href={project.visit} 
                         target="_blank" 
                         rel="noreferrer"
+                        onClick={() => trackEvent('Project Visit Click', { project: project.title })}
                         className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-primary/10 border border-primary/20 rounded-xl text-xs font-medium text-primary hover:bg-primary/20 transition-colors"
                       >
                         <ExternalLink className="w-4 h-4" /> Visit

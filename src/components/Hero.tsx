@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, FileText } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 import { InteractiveBackground } from "./InteractiveBackground";
+import { trackEvent } from "@/lib/analytics";
 
 export const Hero = () => {
   return (
@@ -24,6 +25,7 @@ export const Hero = () => {
           onClick={(e) => {
             const target = e.currentTarget;
             const original = portfolioData.name;
+            trackEvent('Name Scramble Click');
             let iterations = 0;
             const interval = setInterval(() => {
               target.innerText = original.split("")
@@ -45,7 +47,12 @@ export const Hero = () => {
         </p>
         
         <div className="flex flex-wrap justify-center gap-4">
-          <Button size="lg" className="rounded-full px-8 h-12 text-base font-medium group" asChild>
+          <Button 
+            size="lg" 
+            className="rounded-full px-8 h-12 text-base font-medium group" 
+            asChild
+            onClick={() => trackEvent('Resume Download Click')}
+          >
             <a href="https://drive.google.com/file/d/1C_lRYC-5Uo03-hg-sXuUF1dCG6FulqCF/view?usp=sharing" target="_blank">
               <FileText className="w-5 h-5 mr-2" />
               Resume
@@ -61,11 +68,18 @@ export const Hero = () => {
           
           <div className="flex items-center gap-2">
             {[
-              { icon: Github, href: portfolioData.contact.github },
-              { icon: Linkedin, href: portfolioData.contact.linkedin },
-              { icon: Mail, href: `mailto:${portfolioData.contact.email}` }
+              { name: 'Github', icon: Github, href: portfolioData.contact.github },
+              { name: 'Linkedin', icon: Linkedin, href: portfolioData.contact.linkedin },
+              { name: 'Mail', icon: Mail, href: `mailto:${portfolioData.contact.email}` }
             ].map((social, i) => (
-              <Button key={i} variant="ghost" size="icon" className="rounded-full w-12 h-12 hover:bg-white/5" asChild>
+              <Button 
+                key={i} 
+                variant="ghost" 
+                size="icon" 
+                className="rounded-full w-12 h-12 hover:bg-white/5" 
+                asChild
+                onClick={() => trackEvent('Social Click', { platform: social.name })}
+              >
                 <a href={social.href} target="_blank" rel="noreferrer">
                   <social.icon className="w-5 h-5" />
                 </a>

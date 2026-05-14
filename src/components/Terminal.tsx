@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { portfolioData } from "@/data/portfolio";
+import { trackEvent } from "@/lib/analytics";
 
 export const Terminal = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,11 @@ export const Terminal = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "`") {
         e.preventDefault();
-        setIsOpen((prev) => !prev);
+        setIsOpen((prev) => {
+          const next = !prev;
+          if (next) trackEvent('Terminal Opened');
+          return next;
+        });
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -28,6 +33,10 @@ export const Terminal = () => {
   const handleCommand = (cmd: string) => {
     const command = cmd.toLowerCase().trim();
     let response = "";
+
+    if (command) {
+      trackEvent('Terminal Command', { command });
+    }
 
     switch (command) {
       case "help":
