@@ -1,8 +1,5 @@
 import posthog from 'posthog-js';
 
-const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-const TELEGRAM_CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
-
 // Initialize PostHog
 export const initAnalytics = () => {
   const key = import.meta.env.VITE_POSTHOG_KEY;
@@ -17,40 +14,38 @@ export const initAnalytics = () => {
   }
 };
 
-// Telegram Logging
+// Telegram Logging via Proxy (Secures Token/ChatID)
 export const logToTelegram = async (message: string) => {
-  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID || TELEGRAM_BOT_TOKEN === 'your_telegram_bot_token') {
-    console.log('Telegram logging skipped: Missing credentials');
-    return;
-  }
-
   try {
-    const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    // We call our own API route instead of Telegram directly
+    // This keeps the Bot Token and Chat ID hidden on the server
+    const response = await fetch('/api/log', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_CHAT_ID,
-        text: `🚀 Portfolio Activity:\n${message}`,
-        parse_mode: 'HTML',
-      }),
+      body: JSON.stringify({ message }),
     });
 
     if (!response.ok) {
-      console.error('Failed to send Telegram message:', await response.text());
+      // Fail silently in production, log error in dev
+      if (import.meta.env.DEV) {
+        console.error('Failed to send Telegram message via proxy');
+      }
     }
   } catch (error) {
-    console.error('Error logging to Telegram:', error);
+    if (import.meta.env.DEV) {
+      console.error('Error logging to Telegram:', error);
+    }
   }
 };
 
 // Unified tracking function
 export const trackEvent = (eventName: string, properties?: Record<string, any>) => {
-  // PostHog
+  // PostHog (Public Key - Safe for client)
   posthog.capture(eventName, properties);
 
-  // Telegram
+  // Telegram (Proxied - Safe)
   const propsString = properties ? `\nDetails: ${JSON.stringify(properties, null, 2)}` : '';
   logToTelegram(`<b>Event:</b> ${eventName}${propsString}`);
 };
