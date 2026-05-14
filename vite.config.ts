@@ -49,10 +49,12 @@ export default defineConfig(({ mode }) => {
                     }),
                   });
 
-                  const data = await response.json();
                   res.statusCode = response.ok ? 200 : 400;
                   res.setHeader('Content-Type', 'application/json');
-                  res.end(JSON.stringify(data));
+                  res.end(JSON.stringify({ 
+                    success: response.ok, 
+                    message: response.ok ? 'Activity logged' : 'Failed to log' 
+                  }));
                 } catch (e) {
                   res.statusCode = 500;
                   res.end(JSON.stringify({ error: 'Internal server error' }));

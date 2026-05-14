@@ -8,6 +8,14 @@ export default async function handler(req: Request) {
   }
 
   try {
+    const origin = req.headers.get('origin');
+    const isLocalhost = origin?.includes('localhost');
+    const isAuthorizedDomain = origin?.includes('shubhamxd.in') || origin?.includes('vercel.app');
+
+    if (!isLocalhost && !isAuthorizedDomain) {
+      return new Response('Forbidden', { status: 403 });
+    }
+
     const secret = req.headers.get('x-logging-secret');
     if (secret !== process.env.LOGGING_SECRET) {
       return new Response('Unauthorized', { status: 401 });
@@ -35,9 +43,11 @@ export default async function handler(req: Request) {
       }),
     });
 
-    const data = await response.json();
-
-    return new Response(JSON.stringify(data), {
+    // Return a generic response to prevent leaking Telegram chat/bot details
+    return new Response(JSON.stringify({ 
+      success: response.ok,
+      message: response.ok ? 'Activity logged' : 'Failed to log'
+    }), {
       status: response.ok ? 200 : 400,
       headers: {
         'Content-Type': 'application/json',
