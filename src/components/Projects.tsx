@@ -56,30 +56,6 @@ export const Projects = () => {
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-transparent opacity-80" />
-                  
-                  {/* Action Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-95 group-hover:scale-100">
-                    {project.github && (
-                      <a 
-                        href={project.github} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="w-12 h-12 bg-white text-black rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-xl"
-                      >
-                        <Github className="w-5 h-5" />
-                      </a>
-                    )}
-                    {project.visit && (
-                      <a 
-                        href={project.visit} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="w-12 h-12 bg-primary text-black rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-xl"
-                      >
-                        <ExternalLink className="w-5 h-5" />
-                      </a>
-                    )}
-                  </div>
                 </div>
 
                 {/* Content Section */}
@@ -97,14 +73,37 @@ export const Projects = () => {
 
                   <h3 className="text-2xl font-bold mb-3 flex items-center justify-between text-white group-hover:text-primary transition-colors">
                     {project.title}
-                    <ArrowUpRight className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-all duration-300" />
                   </h3>
                   
                   <p className="text-white/60 text-sm leading-relaxed mb-8 flex-1 line-clamp-3">
                     {project.description}
                   </p>
 
-                  <div className="space-y-3 mb-8 p-5 bg-white/[0.01] border border-white/5 rounded-2xl">
+                  {/* Permanent Actions */}
+                  <div className="flex gap-3 mb-8">
+                    {project.github && (
+                      <a 
+                        href={project.github} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-white/5 border border-white/10 rounded-xl text-xs font-medium hover:bg-white/10 transition-colors"
+                      >
+                        <Github className="w-4 h-4" /> Github
+                      </a>
+                    )}
+                    {project.visit && (
+                      <a 
+                        href={project.visit} 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-primary/10 border border-primary/20 rounded-xl text-xs font-medium text-primary hover:bg-primary/20 transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" /> Visit
+                      </a>
+                    )}
+                  </div>
+
+                  <div className="space-y-3 p-5 bg-white/[0.01] border border-white/5 rounded-2xl">
                     {project.features.map((feature, k) => (
                       <div key={k} className="flex items-start gap-3 text-xs text-white/70">
                         <CheckCircle2 className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
