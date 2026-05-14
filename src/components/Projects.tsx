@@ -1,13 +1,11 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Github, ExternalLink, ArrowUpRight, CheckCircle2, X } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 import { trackEvent } from "@/lib/analytics";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogClose } from "@/components/ui/dialog";
 
 export const Projects = () => {
-  const [selectedProject, setSelectedProject] = useState<typeof portfolioData.projects[0] | null>(null);
-
+  
   return (
     <section id="projects" className="py-32 px-6 bg-[#020202]">
       <div className="max-w-7xl mx-auto">
