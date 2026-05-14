@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { Projects } from "./components/Projects";
 import { SkillsAndExperience } from "./components/SkillsAndExperience";
-import { Terminal } from "./components/Terminal";
 import { CustomCursor } from "./components/CustomCursor";
 import { motion, AnimatePresence } from "framer-motion";
 import { portfolioData } from "./data/portfolio";
 import { Mail, Linkedin, MessageSquare } from "lucide-react";
 import { Button } from "./components/ui/button";
 import { trackEvent } from "./lib/analytics";
+
+// Lazy load heavy components
+const Terminal = lazy(() => import("./components/Terminal").then(module => ({ default: module.Terminal })));
 
 function App() {
   const [konami, setKonami] = useState(false);
@@ -119,7 +121,9 @@ function App() {
         </div>
       </footer>
 
-      <Terminal />
+      <Suspense fallback={null}>
+        <Terminal />
+      </Suspense>
 
       <AnimatePresence>
         {konami && (

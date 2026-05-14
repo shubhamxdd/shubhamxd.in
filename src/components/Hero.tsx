@@ -2,13 +2,17 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, FileText } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
-import { InteractiveBackground } from "./InteractiveBackground";
 import { trackEvent } from "@/lib/analytics";
+import { lazy, Suspense } from "react";
+
+const InteractiveBackground = lazy(() => import("./InteractiveBackground").then(module => ({ default: module.InteractiveBackground })));
 
 export const Hero = () => {
   return (
     <section className="relative min-h-screen flex flex-col justify-center items-center px-4 pt-20 overflow-hidden">
-      <InteractiveBackground />
+      <Suspense fallback={null}>
+        <InteractiveBackground />
+      </Suspense>
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
       
