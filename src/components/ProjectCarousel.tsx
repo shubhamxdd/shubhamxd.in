@@ -50,8 +50,10 @@ export const ProjectCarousel = ({ images, onZoom, className = "", showZoom = tru
             exit={{ opacity: 0, x: -20, scale: 0.95 }}
             transition={{ type: "spring", damping: 20, stiffness: 100 }}
             className={`w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] ${showZoom ? 'cursor-zoom-in' : 'cursor-pointer'}`}
-            onClick={() => {
+            onClick={(e) => {
               if (showZoom && onZoom) {
+                e.stopPropagation();
+                e.preventDefault();
                 onZoom(images[currentIndex]);
               }
             }}

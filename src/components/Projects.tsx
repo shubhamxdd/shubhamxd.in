@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, ExternalLink, ArrowUpRight, CheckCircle2, X, Maximize2 } from "lucide-react";
+import { Github, ExternalLink, ArrowUpRight, CheckCircle2, X } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 import { trackEvent } from "@/lib/analytics";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogClose } from "@/components/ui/dialog";
@@ -40,8 +40,6 @@ export const Projects = () => {
             <Dialog key={i} onOpenChange={(open) => {
               if (open) {
                 trackEvent('Project Modal Opened', { project: project.title });
-              } else {
-                setZoomedImage(null);
               }
             }}>
               <DialogTrigger asChild>
@@ -53,14 +51,16 @@ export const Projects = () => {
                   className="group relative cursor-pointer"
                 >
                   <div className="relative h-full flex flex-col bg-white/[0.02] border border-white/5 rounded-[2rem] overflow-hidden backdrop-blur-sm transition-all duration-500 hover:bg-white/[0.04] hover:border-primary/20">
-                    {/* Project Image Carousel (Card Version - Zoom Disabled) */}
                     <ProjectCarousel 
                       images={project.images} 
-                      showZoom={false}
+                      showZoom={true}
+                      onZoom={(img) => {
+                        setZoomedImage(img);
+                        trackEvent('Project Image Zoomed', { project: project.title, location: 'card' });
+                      }}
                       className="h-64"
                     />
 
-                    {/* Content Section */}
                     <div className="p-8 flex flex-col flex-1">
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.tech.slice(0, 3).map((tag, j) => (
@@ -92,25 +92,19 @@ export const Projects = () => {
                 </motion.div>
               </DialogTrigger>
 
-              <DialogContent 
-                className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 overflow-hidden rounded-[2rem]"
-                onInteractOutside={(e) => {
-                  if (zoomedImage) e.preventDefault();
-                }}
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 h-full max-h-[90vh] overflow-y-auto">
-                  {/* Detailed Image Carousel (Modal Version - Zoom Enabled) */}
+              <DialogContent className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 rounded-[2rem]">
+                <div className="grid grid-cols-1 md:grid-cols-2 h-full max-h-[90vh] overflow-y-auto rounded-[2rem] overflow-hidden">
                   <ProjectCarousel 
                     images={project.images} 
                     showZoom={true}
                     onZoom={(img) => {
                       setZoomedImage(img);
-                      trackEvent('Project Image Zoomed', { project: project.title });
+                      trackEvent('Project Image Zoomed', { project: project.title, location: 'modal' });
                     }}
                     className="h-72 md:h-full"
                   />
                   
-                  <div className="p-8 md:p-12 flex flex-col">
+                  <div className="p-8 md:p-12 flex flex-col bg-[#0a0a0a]">
                     <div className="flex justify-between items-start mb-6">
                       <div>
                         <DialogTitle className="text-4xl font-bold tracking-tighter mb-2">{project.title}</DialogTitle>
@@ -167,53 +161,38 @@ export const Projects = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* Fullscreen Lightbox - Nested inside to bypass Radix modal interaction lock */}
-                <AnimatePresence>
-                  {zoomedImage && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/98 backdrop-blur-2xl p-4 md:p-20 cursor-zoom-out"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setZoomedImage(null);
-                        trackEvent('Project Image Unzoomed');
-                      }}
-                    >
-                      <motion.div
-                        initial={{ scale: 0.9, y: 20 }}
-                        animate={{ scale: 1, y: 0 }}
-                        exit={{ scale: 0.9, y: 20 }}
-                        className="relative w-full h-full flex items-center justify-center cursor-auto"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <img
-                          src={zoomedImage}
-                          alt="Zoomed project screenshot"
-                          className="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
-                        />
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            setZoomedImage(null);
-                          }}
-                          className="absolute top-4 right-4 p-3 bg-white/10 border border-white/10 rounded-full hover:bg-white/20 transition-colors text-white cursor-pointer"
-                        >
-                          <X className="w-6 h-6" />
-                        </button>
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </DialogContent>
             </Dialog>
           ))}
         </div>
       </div>
+
+      {/* Global Lightbox Dialog */}
+      <Dialog open={!!zoomedImage} onOpenChange={(open) => !open && setZoomedImage(null)}>
+        <DialogContent className="max-w-[95vw] w-full h-[95vh] bg-black/95 border-none p-0 flex items-center justify-center backdrop-blur-3xl overflow-hidden rounded-none shadow-none">
+          <AnimatePresence mode="wait">
+            {zoomedImage && (
+              <motion.div
+                key={zoomedImage}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="relative w-full h-full flex items-center justify-center p-4 md:p-20 cursor-zoom-out"
+                onClick={() => setZoomedImage(null)}
+              >
+                <img
+                  src={zoomedImage}
+                  alt="Zoomed project screenshot"
+                  className="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
+                />
+                <DialogClose className="absolute top-4 right-4 p-3 bg-white/10 border border-white/10 rounded-full hover:bg-white/20 transition-colors text-white">
+                  <X className="w-6 h-6" />
+                </DialogClose>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
