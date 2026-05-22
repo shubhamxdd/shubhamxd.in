@@ -1,11 +1,13 @@
-import { motion } from "framer-motion";
-import { Github, ExternalLink, ArrowUpRight, CheckCircle2, X } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Github, ExternalLink, ArrowUpRight, CheckCircle2, X, Maximize2 } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 import { trackEvent } from "@/lib/analytics";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogClose } from "@/components/ui/dialog";
 
 export const Projects = () => {
-  
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
+
   return (
     <section id="projects" className="py-32 px-6 bg-[#020202]">
       <div className="max-w-7xl mx-auto">
@@ -96,7 +98,13 @@ export const Projects = () => {
 
               <DialogContent className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 overflow-hidden rounded-[2rem]">
                 <div className="grid grid-cols-1 md:grid-cols-2 h-full max-h-[90vh] overflow-y-auto">
-                  <div className="relative h-72 md:h-full bg-black flex items-center justify-center overflow-hidden">
+                  <div 
+                    className="relative h-72 md:h-full bg-black flex items-center justify-center overflow-hidden cursor-zoom-in group/modal-img"
+                    onClick={() => {
+                      setZoomedImage(project.image);
+                      trackEvent('Project Image Zoomed', { project: project.title });
+                    }}
+                  >
                     {/* Immersive Blurred Background in Modal */}
                     <img
                       src={project.image}
@@ -106,8 +114,16 @@ export const Projects = () => {
                     <img 
                       src={project.image} 
                       alt={project.title} 
-                      className="relative z-10 w-full h-full object-contain p-8 md:p-12 drop-shadow-[0_30px_60px_rgba(0,0,0,0.9)]"
+                      className="relative z-10 w-full h-full object-contain p-8 md:p-12 drop-shadow-[0_30px_60px_rgba(0,0,0,0.9)] transition-transform duration-500 group-hover/modal-img:scale-[1.02]"
                     />
+                    
+                    {/* Zoom Hint */}
+                    <div className="absolute inset-0 z-30 flex items-center justify-center opacity-0 group-hover/modal-img:opacity-100 transition-opacity bg-black/20 backdrop-blur-[2px]">
+                      <div className="bg-white/10 border border-white/20 p-3 rounded-full backdrop-blur-md">
+                        <Maximize2 className="w-6 h-6 text-white" />
+                      </div>
+                    </div>
+                    
                     <div className="absolute inset-0 z-20 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/20" />
                   </div>
                   
@@ -173,6 +189,42 @@ export const Projects = () => {
           ))}
         </div>
       </div>
+
+      {/* Fullscreen Lightbox */}
+      <AnimatePresence>
+        {zoomedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-20 cursor-zoom-out"
+            onClick={() => {
+              setZoomedImage(null);
+              trackEvent('Project Image Unzoomed');
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="relative w-full h-full flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={zoomedImage}
+                alt="Zoomed project screenshot"
+                className="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
+              />
+              <button
+                onClick={() => setZoomedImage(null)}
+                className="absolute top-4 right-4 p-3 bg-white/10 border border-white/10 rounded-full hover:bg-white/20 transition-colors text-white"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
