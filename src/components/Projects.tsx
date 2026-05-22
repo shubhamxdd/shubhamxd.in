@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, ExternalLink, ArrowUpRight, CheckCircle2, X } from "lucide-react";
+import { Github, ExternalLink, ArrowUpRight, CheckCircle2, X, Maximize2 } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 import { trackEvent } from "@/lib/analytics";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogClose } from "@/components/ui/dialog";
@@ -38,7 +38,11 @@ export const Projects = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {portfolioData.projects.map((project, i) => (
             <Dialog key={i} onOpenChange={(open) => {
-              if (open) trackEvent('Project Modal Opened', { project: project.title });
+              if (open) {
+                trackEvent('Project Modal Opened', { project: project.title });
+              } else {
+                setZoomedImage(null);
+              }
             }}>
               <DialogTrigger asChild>
                 <motion.div
@@ -88,7 +92,12 @@ export const Projects = () => {
                 </motion.div>
               </DialogTrigger>
 
-              <DialogContent className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 overflow-hidden rounded-[2rem]">
+              <DialogContent 
+                className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 overflow-hidden rounded-[2rem]"
+                onInteractOutside={(e) => {
+                  if (zoomedImage) e.preventDefault();
+                }}
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 h-full max-h-[90vh] overflow-y-auto">
                   {/* Detailed Image Carousel (Modal Version - Zoom Enabled) */}
                   <ProjectCarousel 
@@ -158,47 +167,53 @@ export const Projects = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Fullscreen Lightbox - Nested inside to bypass Radix modal interaction lock */}
+                <AnimatePresence>
+                  {zoomedImage && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/98 backdrop-blur-2xl p-4 md:p-20 cursor-zoom-out"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setZoomedImage(null);
+                        trackEvent('Project Image Unzoomed');
+                      }}
+                    >
+                      <motion.div
+                        initial={{ scale: 0.9, y: 20 }}
+                        animate={{ scale: 1, y: 0 }}
+                        exit={{ scale: 0.9, y: 20 }}
+                        className="relative w-full h-full flex items-center justify-center cursor-auto"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <img
+                          src={zoomedImage}
+                          alt="Zoomed project screenshot"
+                          className="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
+                        />
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setZoomedImage(null);
+                          }}
+                          className="absolute top-4 right-4 p-3 bg-white/10 border border-white/10 rounded-full hover:bg-white/20 transition-colors text-white cursor-pointer"
+                        >
+                          <X className="w-6 h-6" />
+                        </button>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </DialogContent>
             </Dialog>
           ))}
         </div>
       </div>
-
-      {/* Fullscreen Lightbox */}
-      <AnimatePresence>
-        {zoomedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-20 cursor-zoom-out"
-            onClick={() => {
-              setZoomedImage(null);
-              trackEvent('Project Image Unzoomed');
-            }}
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="relative w-full h-full flex items-center justify-center"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <img
-                src={zoomedImage}
-                alt="Zoomed project screenshot"
-                className="max-w-full max-h-full object-contain rounded-xl shadow-2xl"
-              />
-              <button
-                onClick={() => setZoomedImage(null)}
-                className="absolute top-4 right-4 p-3 bg-white/10 border border-white/10 rounded-full hover:bg-white/20 transition-colors text-white"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 };
