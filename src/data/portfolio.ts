@@ -26,7 +26,6 @@ export const portfolioData = {
     {
       title: "PrepAI",
       description: "A production-grade AI platform for academic resource analysis, featuring high-fidelity Vision-OCR document ingestion and automated practice paper generation.",
-      // digitalocean-speaces posthog
       tech: ["TypeScript", "React", "FastAPI", "Docker", "Redis", "ARQ", "PostgreSQL", "PostHog"],
       github: "https://github.com/shubhamxdd/pyq-appl",
       visit: "https://pyq.shubhamxd.in/",

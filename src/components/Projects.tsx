@@ -47,13 +47,19 @@ export const Projects = () => {
                 >
                   <div className="relative h-full flex flex-col bg-white/[0.02] border border-white/5 rounded-[2rem] overflow-hidden backdrop-blur-sm transition-all duration-500 hover:bg-white/[0.04] hover:border-primary/20">
                     {/* Image Section */}
-                    <div className="relative h-60 overflow-hidden">
+                    <div className="relative h-64 overflow-hidden bg-[#050505]">
+                      {/* Vibrant Blurred Background */}
+                      <img
+                        src={project.image}
+                        alt=""
+                        className="absolute inset-0 w-full h-full object-cover blur-[80px] opacity-60 scale-150"
+                      />
                       <motion.img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="relative z-10 w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-105 drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-transparent to-transparent opacity-80" />
+                      <div className="absolute inset-0 z-20 bg-gradient-to-t from-[#020202] via-transparent to-transparent opacity-40" />
                     </div>
 
                     {/* Content Section */}
@@ -90,13 +96,19 @@ export const Projects = () => {
 
               <DialogContent className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 overflow-hidden rounded-[2rem]">
                 <div className="grid grid-cols-1 md:grid-cols-2 h-full max-h-[90vh] overflow-y-auto">
-                  <div className="relative h-64 md:h-full bg-black">
+                  <div className="relative h-72 md:h-full bg-black flex items-center justify-center overflow-hidden">
+                    {/* Immersive Blurred Background in Modal */}
+                    <img
+                      src={project.image}
+                      alt=""
+                      className="absolute inset-0 w-full h-full object-cover blur-[120px] opacity-70 scale-150"
+                    />
                     <img 
                       src={project.image} 
                       alt={project.title} 
-                      className="w-full h-full object-cover opacity-60"
+                      className="relative z-10 w-full h-full object-contain p-8 md:p-12 drop-shadow-[0_30px_60px_rgba(0,0,0,0.9)]"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
+                    <div className="absolute inset-0 z-20 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/20" />
                   </div>
                   
                   <div className="p-8 md:p-12 flex flex-col">
