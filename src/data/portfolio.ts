@@ -37,7 +37,7 @@ export const portfolioData = {
         "Advanced Analytics & Growth: Full-stack instrumentation with PostHog to track conversion funnels, quota usage, and user behavioral patterns.",
         "Secure Multi-provider Auth: Self-hosted authentication layer (Better Auth) supporting Google OAuth and scoped user-data isolation."
       ],
-      images: ["/projects/prepai.png","/projects/prepai.png"],
+      images: ["/projects/prepai.png"],
     },
     {
       title: "PdfTools",
