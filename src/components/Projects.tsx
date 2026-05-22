@@ -51,13 +51,10 @@ export const Projects = () => {
                   className="group relative cursor-pointer"
                 >
                   <div className="relative h-full flex flex-col bg-white/[0.02] border border-white/5 rounded-[2rem] overflow-hidden backdrop-blur-sm transition-all duration-500 hover:bg-white/[0.04] hover:border-primary/20">
+                    {/* Project Image Carousel (Card Version - Zoom Disabled to allow Modal open) */}
                     <ProjectCarousel 
                       images={project.images} 
-                      showZoom={true}
-                      onZoom={(img) => {
-                        setZoomedImage(img);
-                        trackEvent('Project Image Zoomed', { project: project.title, location: 'card' });
-                      }}
+                      showZoom={false}
                       className="h-64"
                     />
 
@@ -94,6 +91,7 @@ export const Projects = () => {
 
               <DialogContent className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 rounded-[2rem]">
                 <div className="grid grid-cols-1 md:grid-cols-2 h-full max-h-[90vh] overflow-y-auto rounded-[2rem] overflow-hidden">
+                  {/* Detailed Image Carousel (Modal Version - Zoom Enabled) */}
                   <ProjectCarousel 
                     images={project.images} 
                     showZoom={true}
@@ -169,7 +167,7 @@ export const Projects = () => {
 
       {/* Global Lightbox Dialog */}
       <Dialog open={!!zoomedImage} onOpenChange={(open) => !open && setZoomedImage(null)}>
-        <DialogContent className="max-w-[95vw] w-full h-[95vh] bg-black/95 border-none p-0 flex items-center justify-center backdrop-blur-3xl overflow-hidden rounded-none shadow-none">
+        <DialogContent className="max-w-[95vw] w-full h-[95vh] bg-black/95 border-none p-0 flex items-center justify-center backdrop-blur-3xl overflow-hidden rounded-none shadow-none z-[200]">
           <AnimatePresence mode="wait">
             {zoomedImage && (
               <motion.div
