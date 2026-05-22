@@ -24,6 +24,23 @@ export const portfolioData = {
   ],
   projects: [
     {
+      title: "PrepAI",
+      description: "A production-grade AI platform for academic resource analysis, featuring high-fidelity Vision-OCR document ingestion and automated practice paper generation.",
+      // digitalocean-speaces posthog
+      tech: ["TypeScript", "React", "FastAPI", "Docker", "Redis", "ARQ", "PostgreSQL", "PostHog"],
+      github: "https://github.com/shubhamxdd/pyq-appl",
+      visit: "https://pyq.shubhamxd.in/",
+features: [
+           "Multimodal PDF Ingestion: Vision-AI (Nvidia Nemotron) pipeline for extracting clean text from complex academic layouts and diagrams.",
+           "Asynchronous Task Orchestration: Redis-backed ARQ worker system with global failure hooks for resilient background document processing.",
+           "Dynamic Exam Generation: Topic-aware paper generator featuring automatic format detection and on-demand PDF synthesis via WeasyPrint.",
+           "Real-time Knowledge Streaming: Optimized Server-Sent Events (SSE) for low-latency, streamed AI responses using Gemini 1.5 Flash.",
+           "Advanced Analytics & Growth: Full-stack instrumentation with PostHog to track conversion funnels, quota usage, and user behavioral patterns.",
+           "Secure Multi-provider Auth: Self-hosted authentication layer (Better Auth) supporting Google OAuth and scoped user-data isolation."
+         ],
+      image: "/projects/prepai.png",
+    },
+    {
       title: "PdfTools",
       description: "AI-powered PDF utility application with multimodal analysis and manipulation features.",
       tech: ["React Native", "Expo", "Gemini 2.5", "TypeScript"],
