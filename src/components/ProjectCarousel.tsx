@@ -45,10 +45,10 @@ export const ProjectCarousel = ({ images, onZoom, className = "", showZoom = tru
           <motion.img
             key={currentIndex}
             src={images[currentIndex]}
-            initial={{ opacity: 0, x: 20, scale: 0.95 }}
+            initial={{ opacity: 0, x: 10, scale: 0.99 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: -20, scale: 0.95 }}
-            transition={{ type: "spring", damping: 20, stiffness: 100 }}
+            exit={{ opacity: 0, x: -10, scale: 0.99 }}
+            transition={{ type: "spring", damping: 30, stiffness: 400, mass: 0.3 }}
             className={`w-full h-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] ${showZoom ? 'cursor-zoom-in' : 'cursor-pointer'}`}
             onClick={(e) => {
               if (showZoom && onZoom) {
@@ -66,13 +66,13 @@ export const ProjectCarousel = ({ images, onZoom, className = "", showZoom = tru
         <>
           <button
             onClick={prev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/40 border border-white/10 text-white opacity-0 group-hover/carousel:opacity-100 transition-opacity hover:bg-primary hover:text-black"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/40 border border-white/10 text-white md:opacity-0 md:group-hover/carousel:opacity-100 transition-opacity hover:bg-primary hover:text-black"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <button
             onClick={next}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/40 border border-white/10 text-white opacity-0 group-hover/carousel:opacity-100 transition-opacity hover:bg-primary hover:text-black"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/40 border border-white/10 text-white md:opacity-0 md:group-hover/carousel:opacity-100 transition-opacity hover:bg-primary hover:text-black"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
