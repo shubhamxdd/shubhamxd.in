@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, ExternalLink, ArrowUpRight, CheckCircle2, X, Maximize2 } from "lucide-react";
+import { Github, ExternalLink, ArrowUpRight, CheckCircle2, X } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 import { trackEvent } from "@/lib/analytics";
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogClose } from "@/components/ui/dialog";
+import { ProjectCarousel } from "./ProjectCarousel";
 
 export const Projects = () => {
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
@@ -48,21 +49,12 @@ export const Projects = () => {
                   className="group relative cursor-pointer"
                 >
                   <div className="relative h-full flex flex-col bg-white/[0.02] border border-white/5 rounded-[2rem] overflow-hidden backdrop-blur-sm transition-all duration-500 hover:bg-white/[0.04] hover:border-primary/20">
-                    {/* Image Section */}
-                    <div className="relative h-64 overflow-hidden bg-[#050505]">
-                      {/* Vibrant Blurred Background */}
-                      <img
-                        src={project.image}
-                        alt=""
-                        className="absolute inset-0 w-full h-full object-cover blur-[80px] opacity-60 scale-150"
-                      />
-                      <motion.img
-                        src={project.image}
-                        alt={project.title}
-                        className="relative z-10 w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-105 drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
-                      />
-                      <div className="absolute inset-0 z-20 bg-gradient-to-t from-[#020202] via-transparent to-transparent opacity-40" />
-                    </div>
+                    {/* Project Image Carousel (Card Version - Zoom Disabled) */}
+                    <ProjectCarousel 
+                      images={project.images} 
+                      showZoom={false}
+                      className="h-64"
+                    />
 
                     {/* Content Section */}
                     <div className="p-8 flex flex-col flex-1">
@@ -98,34 +90,16 @@ export const Projects = () => {
 
               <DialogContent className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 overflow-hidden rounded-[2rem]">
                 <div className="grid grid-cols-1 md:grid-cols-2 h-full max-h-[90vh] overflow-y-auto">
-                  <div 
-                    className="relative h-72 md:h-full bg-black flex items-center justify-center overflow-hidden cursor-zoom-in group/modal-img"
-                    onClick={() => {
-                      setZoomedImage(project.image);
+                  {/* Detailed Image Carousel (Modal Version - Zoom Enabled) */}
+                  <ProjectCarousel 
+                    images={project.images} 
+                    showZoom={true}
+                    onZoom={(img) => {
+                      setZoomedImage(img);
                       trackEvent('Project Image Zoomed', { project: project.title });
                     }}
-                  >
-                    {/* Immersive Blurred Background in Modal */}
-                    <img
-                      src={project.image}
-                      alt=""
-                      className="absolute inset-0 w-full h-full object-cover blur-[120px] opacity-70 scale-150"
-                    />
-                    <img 
-                      src={project.image} 
-                      alt={project.title} 
-                      className="relative z-10 w-full h-full object-contain p-8 md:p-12 drop-shadow-[0_30px_60px_rgba(0,0,0,0.9)] transition-transform duration-500 group-hover/modal-img:scale-[1.02]"
-                    />
-                    
-                    {/* Zoom Hint */}
-                    <div className="absolute inset-0 z-30 flex items-center justify-center opacity-0 group-hover/modal-img:opacity-100 transition-opacity bg-black/20 backdrop-blur-[2px]">
-                      <div className="bg-white/10 border border-white/20 p-3 rounded-full backdrop-blur-md">
-                        <Maximize2 className="w-6 h-6 text-white" />
-                      </div>
-                    </div>
-                    
-                    <div className="absolute inset-0 z-20 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/20" />
-                  </div>
+                    className="h-72 md:h-full"
+                  />
                   
                   <div className="p-8 md:p-12 flex flex-col">
                     <div className="flex justify-between items-start mb-6">

@@ -29,15 +29,15 @@ export const portfolioData = {
       tech: ["TypeScript", "React", "FastAPI", "Docker", "Redis", "ARQ", "PostgreSQL", "PostHog"],
       github: "https://github.com/shubhamxdd/pyq-appl",
       visit: "https://pyq.shubhamxd.in/",
-features: [
-           "Multimodal PDF Ingestion: Vision-AI (Nvidia Nemotron) pipeline for extracting clean text from complex academic layouts and diagrams.",
-           "Asynchronous Task Orchestration: Redis-backed ARQ worker system with global failure hooks for resilient background document processing.",
-           "Dynamic Exam Generation: Topic-aware paper generator featuring automatic format detection and on-demand PDF synthesis via WeasyPrint.",
-           "Real-time Knowledge Streaming: Optimized Server-Sent Events (SSE) for low-latency, streamed AI responses using Gemini 1.5 Flash.",
-           "Advanced Analytics & Growth: Full-stack instrumentation with PostHog to track conversion funnels, quota usage, and user behavioral patterns.",
-           "Secure Multi-provider Auth: Self-hosted authentication layer (Better Auth) supporting Google OAuth and scoped user-data isolation."
-         ],
-      image: "/projects/prepai.png",
+      features: [
+        "Multimodal PDF Ingestion: Vision-AI (Nvidia Nemotron) pipeline for extracting clean text from complex academic layouts and diagrams.",
+        "Asynchronous Task Orchestration: Redis-backed ARQ worker system with global failure hooks for resilient background document processing.",
+        "Dynamic Exam Generation: Topic-aware paper generator featuring automatic format detection and on-demand PDF synthesis via WeasyPrint.",
+        "Real-time Knowledge Streaming: Optimized Server-Sent Events (SSE) for low-latency, streamed AI responses using Gemini 1.5 Flash.",
+        "Advanced Analytics & Growth: Full-stack instrumentation with PostHog to track conversion funnels, quota usage, and user behavioral patterns.",
+        "Secure Multi-provider Auth: Self-hosted authentication layer (Better Auth) supporting Google OAuth and scoped user-data isolation."
+      ],
+      images: ["/projects/prepai.png","/projects/prepai.png"],
     },
     {
       title: "PdfTools",
@@ -49,7 +49,7 @@ features: [
         "PDF merging, splitting, and drag-and-drop system.",
         "Local file processing for security and performance.",
       ],
-      image: "/projects/pdftools.png",
+      images: ["/projects/pdftools.png"],
     },
     {
       title: "CalTrack",
@@ -61,7 +61,7 @@ features: [
         "Health engine with TDEE/BMR calculations.",
         "Offline persistence via AsyncStorage.",
       ],
-      image: "/projects/caltrack.png",
+      images: ["/projects/caltrack.png"],
     },
     {
       title: "NextBuy",
@@ -74,7 +74,7 @@ features: [
         "Stripe payment integration and email notifications via Nodemailer.",
         "Responsive layout with ShadCN UI.",
       ],
-      image: "/projects/nextbuy.png",
+      images: ["/projects/nextbuy.png"],
     },
     {
       title: "paste",
@@ -87,7 +87,7 @@ features: [
         "Control access and editing with paraphrase protection, delete codes, and support for grouping/editing multiple pastes as gists.",
         "Includes advanced tools like view tracking, full-text search, and an admin dashboard with metrics, activity logs, and content management.",
       ],
-      image: "/projects/paste.png",
+      images: ["/projects/paste.png"],
     },
   ],
   skills: {
