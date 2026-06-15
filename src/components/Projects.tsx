@@ -89,7 +89,13 @@ export const Projects = () => {
                 </motion.div>
               </DialogTrigger>
 
-              <DialogContent className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 rounded-[2rem]">
+              <DialogContent 
+                hideClose
+                className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 rounded-[2rem]"
+                onInteractOutside={(e) => {
+                  if (zoomedImage) e.preventDefault();
+                }}
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 h-full max-h-[90vh] overflow-y-auto rounded-[2rem] overflow-hidden">
                   {/* Detailed Image Carousel (Modal Version - Zoom Enabled) */}
                   <ProjectCarousel 
@@ -113,7 +119,7 @@ export const Projects = () => {
                         </div>
                       </div>
                       <DialogClose className="p-2 hover:bg-white/5 rounded-full transition-colors">
-                        <X className="w-6 h-6" />
+                        <X className="w-6 h-6 text-white/70" />
                       </DialogClose>
                     </div>
 
@@ -167,7 +173,10 @@ export const Projects = () => {
 
       {/* Global Lightbox Dialog */}
       <Dialog open={!!zoomedImage} onOpenChange={(open) => !open && setZoomedImage(null)}>
-        <DialogContent className="max-w-[95vw] w-full h-[95vh] bg-black/95 border-none p-0 flex items-center justify-center backdrop-blur-3xl overflow-hidden rounded-none shadow-none z-[200]">
+        <DialogContent 
+          hideClose
+          className="max-w-[95vw] w-full h-[95vh] bg-black/95 border-none p-0 flex items-center justify-center backdrop-blur-3xl overflow-hidden rounded-none shadow-none z-[200]"
+        >
           <AnimatePresence mode="wait">
             {zoomedImage && (
               <motion.div
