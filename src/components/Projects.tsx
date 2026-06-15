@@ -91,12 +91,17 @@ export const Projects = () => {
 
               <DialogContent 
                 hideClose
-                className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 rounded-[2rem]"
+                className="max-w-4xl bg-[#0a0a0a] border-white/10 p-0 rounded-[2rem] overflow-hidden"
                 onInteractOutside={(e) => {
                   if (zoomedImage) e.preventDefault();
                 }}
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 h-full max-h-[90vh] overflow-y-auto rounded-[2rem] overflow-hidden">
+                {/* Pinned Close Button */}
+                <DialogClose className="absolute top-6 right-6 z-50 p-2 bg-black/20 hover:bg-white/5 rounded-full transition-colors backdrop-blur-md border border-white/5 group">
+                  <X className="w-6 h-6 text-white/70 group-hover:text-white" />
+                </DialogClose>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 h-full max-h-[90vh] overflow-y-auto">
                   {/* Detailed Image Carousel (Modal Version - Zoom Enabled) */}
                   <ProjectCarousel 
                     images={project.images} 
@@ -118,9 +123,6 @@ export const Projects = () => {
                           ))}
                         </div>
                       </div>
-                      <DialogClose className="p-2 hover:bg-white/5 rounded-full transition-colors">
-                        <X className="w-6 h-6 text-white/70" />
-                      </DialogClose>
                     </div>
 
                     <p className="text-white/70 leading-relaxed mb-8 text-lg">
