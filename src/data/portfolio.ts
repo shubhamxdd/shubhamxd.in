@@ -24,6 +24,22 @@ export const portfolioData = {
   ],
   projects: [
     {
+      title: "Echo",
+      description: "A high-performance, local-first API client built with Tauri v2 and Rust, designed to bypass browser CORS restrictions and deliver a native, AI-enhanced developer experience.",
+      tech: ["Tauri v2", "Rust", "React", "TypeScript", "Vite", "SQLite", "Tailwind CSS v4", "Openrouter"],
+      github: "https://github.com/shubhamxdd/echo",
+      visit: "https://echo.shubhamxd.in/",
+      features: [
+      "Native Rust Execution Engine: Leverages a Tauri-based native backend to execute network requests outside the browser sandbox, bypassing CORS restrictions entirely.",
+      "Local-First Data Persistence: High-performance SQLite integration for local storage of request history, nested collections, and environments, ensuring 100% data sovereignty.",
+       "Context-Aware AI Intelligence: Integrated LLM assistant that analyzes active request parameters and response payloads to generate unit tests, document endpoints, and debug errors.",
+       "Pro-Grade Multi-Tab Workspace: A sophisticated developer UI featuring resizable recursive sidebars, color-coded HTTP badges, and a premium technical aesthetic built with Tailwind v4.",
+       "Dynamic Environment Resolution: Robust environment management supporting real-time variable injection ({{var}}) across URLs, headers, and request bodies for seamless context switching.",
+       "Polyglot Code Synthesis: Built-in transformation engine that converts active API requests into production-ready snippets for Rust (Reqwest), Python, and JavaScript Fetch."
+      ],
+      images: ["/projects/echo-dark.png"],
+    },
+    {
       title: "PrepAI",
       description: "A production-grade AI platform for academic resource analysis, featuring high-fidelity Vision-OCR document ingestion and automated practice paper generation.",
       tech: ["TypeScript", "React", "FastAPI", "Docker", "Redis", "ARQ", "PostgreSQL", "PostHog"],
@@ -37,7 +53,7 @@ export const portfolioData = {
         "Advanced Analytics & Growth: Full-stack instrumentation with PostHog to track conversion funnels, quota usage, and user behavioral patterns.",
         "Secure Multi-provider Auth: Self-hosted authentication layer (Better Auth) supporting Google OAuth and scoped user-data isolation."
       ],
-      images: ["/projects/prepai.png","/projects/prepai.png"],
+      images: ["/projects/prepai.png"],
     },
     {
       title: "PdfTools",
