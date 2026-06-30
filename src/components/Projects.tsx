@@ -128,20 +128,7 @@ export const Projects = () => {
                     <p className="text-white/70 leading-relaxed mb-8 text-lg">
                       {project.description}
                     </p>
-
-                    <div className="space-y-6 mb-10">
-                      <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-white/40">Key Features</h4>
-                      <div className="grid gap-4">
-                        {project.features.map((feature, k) => (
-                          <div key={k} className="flex items-start gap-4 p-4 bg-white/[0.02] border border-white/5 rounded-2xl">
-                            <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                            <span className="text-sm text-white/80">{feature}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="flex gap-4 mt-auto">
+                    <div className="flex gap-4 mt-auto mb-8">
                       {project.github && (
                         <a 
                           href={project.github} 
@@ -165,6 +152,19 @@ export const Projects = () => {
                         </a>
                       )}
                     </div>
+
+                    <div className="space-y-6 mb-10">
+                      <h4 className="text-sm font-bold uppercase tracking-[0.2em] text-white/40">Key Features</h4>
+                      <div className="grid gap-4">
+                        {project.features.map((feature, k) => (
+                          <div key={k} className="flex items-start gap-4 p-4 bg-white/[0.02] border border-white/5 rounded-2xl">
+                            <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                            <span className="text-sm text-white/80">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </DialogContent>
